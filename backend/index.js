@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 const authRoutes = require('./routes/authRoutes');
+const todoRoutes = require('./routes/todoRoutes');
 
 const app = express();
 
@@ -18,6 +19,9 @@ app.get('/',(req,res)=>{
 });
 //user routes
 app.use('/api/auth',authRoutes);
+//todo routes
+app.use('/api/todos',todoRoutes);
+
 
 //Mongodb Connection
 const PORT = process.env.PORT || 5000
