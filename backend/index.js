@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -9,10 +10,14 @@ const app = express();
 app.use(cors()); //Allow frontend communicate to backend
 app.use(express.json()); //Parse json requires
 
+
+
 //Test route
 app.get('/',(req,res)=>{
     res.send('Todo App Backend is Running!');
 });
+//user routes
+app.use('/api/auth',authRoutes);
 
 //Mongodb Connection
 const PORT = process.env.PORT || 5000
