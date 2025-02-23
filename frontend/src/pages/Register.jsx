@@ -7,6 +7,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [error,setError] = useState('');
   const {login} = useAuth() //It is optional this is for auto login.
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ const Register = () => {
       login(response.data.token);
       navigate('/');
     }catch(e){
-      alert('Registration failed');
+      setError(e.response?.data?.message || 'Something went Wrong!');
     }
   }
 
@@ -51,6 +52,7 @@ const Register = () => {
           />
           <button type='submit'>Register</button>
       </form>
+      {error && <div>{error}</div>}
     </div>
   )
 }

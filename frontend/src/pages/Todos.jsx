@@ -5,21 +5,28 @@ import { getTodos,createTodo,updateTodo,deleteTodo } from '../services/api';
 const Todos = () => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const {token,logout} = useAuth();
   const [update, setUpdate] = useState({id:null,isTrue:false});
 
   useEffect(()=>{
       const fetchTodo = async()=>{
-        const response = await getTodos();
-        setTodos(response.data)
+        setIsLoading(true);
+        try{
+          const response = await getTodos();
+          setTodos(response.data)
+        }finally{
+          setIsLoading(false);
+        }
       }
       fetchTodo();
-  },[todos]);
+  },[token]);
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
     try{
       e.preventDefault();
+      if(!newTodo.trim()) return;
       const response = await createTodo({title : newTodo, description:""});
       setTodos([...todos,response.data]);
       setNewTodo('');
@@ -31,7 +38,7 @@ const Todos = () => {
   const handleDelete = async(id)=>{
     try{
       await deleteTodo(id);
-      setTodos(todos);
+      setTodos(todos.filter((todo)=>todo._id !== id));
     }catch(e){
       console.log("failed to delete todo",e);
     }
@@ -47,10 +54,11 @@ const Todos = () => {
     }
   }
 
-  const handleUpdateTodo = async()=>{
+  const handleUpdateTodo = async(e)=>{
     try{
+      e.preventDefault();
       const response = await updateTodo(update.id,{title:newTodo});
-      setTodos([...todos,response.data]);
+      setTodos(todos.map((todo)=>(todo._id === update.id)?response.data:todo));
       setNewTodo('');
       setUpdate({id:null,isTrue:false});
     }catch(e){
@@ -58,8 +66,19 @@ const Todos = () => {
     }
   }
 
+  const handleToggleTodo = async(id)=>{
+    try{
+      const todo = todos.find((todo)=>todo._id === id);
+      const response = await updateTodo(id,{completed : !todo.completed});
+      setTodos(todos.map((todo)=>(todo._id === id)?response.data:todo));
+    }catch(e){
+      console.log("failed to toggle todo",e);
+    }
+  }
+
   return (
     <div>
+      <h1>todo List</h1>
       <form>
         <input type="text" 
           placeholder='Add new Todo'
@@ -73,19 +92,27 @@ const Todos = () => {
           <button  onClick = {handleSubmit}>Add Todo</button>
         }
       </form>
-      <div>
-        {
-          todos.map((todo)=>{
-           return (
-            <div key= {todo._id}>
-                <p id = {todo._id} >{todo.title}</p>
-                <button onClick = {()=>handleDelete(todo._id)}>Delete</button>
-                <button onClick = {()=>handleUpdate(todo._id)}>Edit</button>
-            </div>
-          )
-          })
-        }
-      </div>
+      {
+        (isLoading)?<div>Loading...</div>:
+        <div>
+          {
+            todos.map((todo)=>{
+            return (
+              <div key= {todo._id}>
+                  <input 
+                    type="checkbox" 
+                    checked = {todo.completed}
+                    onChange={(e)=>{handleToggleTodo(todo._id)}}
+                  />
+                  <p id = {todo._id} style={{textDecoration: (todo.completed)?'line-through':'none'}}>{todo.title}</p>
+                  <button onClick = {()=>handleDelete(todo._id)}>Delete</button>
+                  <button onClick = {()=>handleUpdate(todo._id)}>Edit</button>
+              </div>
+            )
+            })
+          }
+        </div>
+      } 
     </div>
   )
 }

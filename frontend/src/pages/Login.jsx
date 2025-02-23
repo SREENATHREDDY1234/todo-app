@@ -7,6 +7,7 @@ import {useNavigate}from 'react-router-dom'
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error,setError] = useState('');
   const {login} = useAuth();
   const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ const Login = () => {
       login(response.data.token);
       navigate('/')
     }catch(e){
-      alert('Login Failed!');
+      setError(e.response?.data?.message || 'Something went Wrong!');
     }
   }
 
@@ -41,6 +42,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+      {error && <div>{error}</div>}
     </div>
   )
 }

@@ -17,7 +17,6 @@ const registerUser = async(req,res)=>{
         const user = await User.create({name,email,password});
         res.status(201).json({success: true,message: "User registered successfully!"})
     }catch(e){
-        console.log(e.message);
         return res.status(500).json({success: false,message: "Server error"});
     }
 }
@@ -36,7 +35,7 @@ const loginUser = async(req,res)=>{
         //compare passwords
         const isMatch = await bcrypt.compare(password,user.password);
         if(!isMatch){
-            return res.status(404).json({success: false,message: "Invalid credentials!"});
+            return res.status(404).json({success: false,message: "password incorrect"});
         }
 
         //Generate JWT token
