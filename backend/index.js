@@ -8,7 +8,7 @@ const todoRoutes = require('./routes/todoRoutes');
 const app = express();
 
 //Middleware
-app.use(cors({ origin: 'https://todo-app-gules-one.vercel.app' })); //Allow frontend communicate to backend
+app.use(cors({ origin: 'https://todo-app-sreen-one.vercel.app' })); //Allow frontend communicate to backend
 app.use(express.json()); //Parse json requires
 
 
