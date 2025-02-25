@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
 import { getTodos,createTodo,updateTodo,deleteTodo } from '../services/api';
+import {FiPlusCircle,FiTrash2,FiEdit}from 'react-icons/fi'
+import {MdCheckBox,MdCheckBoxOutlineBlank}from'react-icons/md'
+import './Todo.css'
 
 const Todos = () => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const {token,logout} = useAuth();
+  const {token,username} = useAuth();
   const [update, setUpdate] = useState({id:null,isTrue:false});
 
   useEffect(()=>{
@@ -77,43 +80,46 @@ const Todos = () => {
   }
 
   return (
-    <div>
-      <h1>todo List</h1>
-      <form>
-        <input type="text" 
-          placeholder='Add new Todo'
-          value={newTodo}
-          onChange={(e)=>setNewTodo(e.target.value)}
-          required
-        />
-        {
-          (update.isTrue)?
-          <button  onClick = {handleUpdateTodo}>Update Todo</button>:
-          <button  onClick = {handleSubmit}>Add Todo</button>
-        }
-      </form>
-      {
-        (isLoading)?<div>Loading...</div>:
-        <div>
+    <div className="body-container">
+      <div className='todo-container'>
+        <h1>Hello, {username} welcome to todo list</h1>
+        <form onSubmit={handleSubmit} className='todo-form'>
+          <input type="text" 
+            placeholder='Add new Todo'
+            value={newTodo}
+            onChange={(e)=>setNewTodo(e.target.value)}
+            required
+            className='input-box'
+          />
           {
-            todos.map((todo)=>{
-            return (
-              <div key= {todo._id}>
-                  <input 
-                    type="checkbox" 
-                    checked = {todo.completed}
-                    onChange={(e)=>{handleToggleTodo(todo._id)}}
-                  />
-                  <p id = {todo._id} style={{textDecoration: (todo.completed)?'line-through':'none'}}>{todo.title}</p>
-                  <button onClick = {()=>handleDelete(todo._id)}>Delete</button>
-                  <button onClick = {()=>handleUpdate(todo._id)}>Edit</button>
-              </div>
-            )
-            })
+            (update.isTrue)?
+            <button  onClick = {handleUpdateTodo} className='update-todo-btn'>Update Todo</button>:
+            <button  onClick = {handleSubmit} className='add-todo-btn'>Add Todo <FiPlusCircle /></button>
           }
-        </div>
-      } 
+        </form>
+        {
+          (isLoading)?<div>Loading...</div>:
+          <div>
+            {
+              todos.map((todo)=>{
+              return (
+                <div key= {todo._id} className='todo-list'>
+                    <button  
+                      className="icon checkbox" 
+                      onClick={()=>{handleToggleTodo(todo._id)}}
+                    >{(todo.completed)? <MdCheckBox/>:<MdCheckBoxOutlineBlank />}</button>
+                    <p id = {todo._id} style={{textDecoration: (todo.completed)?'line-through':'none'}}>{todo.title}</p>
+                    <button className = "icon delete" onClick = {()=>handleDelete(todo._id)}><FiTrash2/></button>
+                    <button className = "icon update"onClick = {()=>handleUpdate(todo._id)}><FiEdit/></button>
+                </div>
+              )
+              })
+            }
+          </div>
+        } 
+      </div>
     </div>
+    
   )
 }
 

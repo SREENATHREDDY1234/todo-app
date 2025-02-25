@@ -1,0 +1,85 @@
+nav {
+    padding: 10px 2%;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    color: var(--primary-color-text);
+    gap: 40px;
+}
+.nav-container{
+    display: flex;
+    align-items: center;
+}
+
+.wrapper{
+    max-width: 1280px;
+    margin: 0px auto;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+}
+.nav-left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.nav-right{
+    justify-self:end;
+    position: relative;
+}
+.nav-right .account{
+    padding: 5px 15px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.5 linear;
+}
+.nav-right .logout{
+    position: absolute;
+    bottom: -48px;
+    left: -20px;
+    background-color: #fcfcfc;
+    padding: 15px 20px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: none;
+}
+.nav-right:hover .logout{
+    display: block;
+}
+.logout h5:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+nav img{
+    width: 35px;
+}
+.btn{
+    width: 80px;
+    height: 30px;
+    padding: 0;
+    justify-self: end;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width:600px) {
+    .nav-left h1{
+        font-size: 16px;
+    }
+    .nav-left img{
+        width: 24px;
+    }
+    .nav-right .account{
+        font-size: 16px;
+        padding: 4px 11px;
+    }
+}

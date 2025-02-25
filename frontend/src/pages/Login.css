@@ -1,0 +1,75 @@
+
+.login-container{
+    width: 80%;
+    max-width: 450px;
+    margin-top: 100px;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 40px 30px;
+    background-color:#ffffff;
+    box-shadow: rgba(0, 0, 0, 0.125) 0px 0.362176px 0.941657px -1px,
+        rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px;;
+    color: var(--primary-color-text);
+    border-radius:10px;
+
+}
+.form-container h1{
+    margin-bottom: 25px;
+}
+.form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.input-box{
+    height: 45px;
+    padding-left: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    border :1px solid #aaaaaa;
+    width: 100%;
+}
+.email,.password,.username{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.eye-icon{
+    position: absolute;
+    right: 30px;
+    bottom:10px;
+    font-size: 20px;
+}
+
+.login-button{
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: #ffffff;
+    background-color: #00c057;
+}
+
+.error{
+    color: red;
+    text-align: left;
+    margin-top: 10px;
+}
+
+@media screen and (max-width:600px) {
+    .form-container h1{
+        font-size: 18px;
+    }
+    .form-container h4,.login-button,.form-container h5{
+        font-size: 14px;
+    }
+    .eye-icon{
+        font-size: 16px;
+        right: 15px;
+    }
+}
