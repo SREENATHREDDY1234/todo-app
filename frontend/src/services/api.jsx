@@ -4,7 +4,7 @@ import axios from 'axios'
 //It is easy to use and it has simpler syntax compared to fetch(),
 
 const API = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'https://todo-app-wlhm.onrender.com/api',
 });
 
 //Add request interceptor to attach JWT token to headers
