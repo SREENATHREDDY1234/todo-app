@@ -22,6 +22,19 @@ API.interceptors.request.use((config)=>{
     return config;
 });
 
+//response interrceptor to handle token expiration
+   API.interceptors.response.use((response)=>response,
+        (error)=>{
+            if(error.response?.status === 401){
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = '/login';//Redirect to login page.
+            }
+            return Promise.reject(error);
+        } 
+    )
+
+
 export const registerUser = (userData) => API.post('/auth/register',userData);
 export const loginUser = (userData) => API.post('/auth/login',userData);
 export const getTodos = () => API.get('/todos');

@@ -13,7 +13,7 @@ const authMiddleware  = (req,res,next)=>{
         req.userId = decoded.userId;//Attach userId to the request.
         next();
     }catch(e){
-        return res.status(500).json({success:false,message:"Invalid token!"});
+        return res.status(401).json({success:false,message:"Invalid token!"});
     }
 }
 
