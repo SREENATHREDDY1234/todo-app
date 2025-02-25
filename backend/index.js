@@ -8,7 +8,20 @@ const todoRoutes = require('./routes/todoRoutes');
 const app = express();
 
 //Middleware
-app.use(cors({ origin: 'https://todo-app-sreen-one.vercel.app' })); //Allow frontend communicate to backend
+const allowedOrigins = [
+    'http://localhost:5173',          // Local development
+    'https://todo-app-sreen-one.vercel.app' // Deployed frontend
+];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+})); //Allow frontend communicate to backend
 app.use(express.json()); //Parse json requires
 
 
