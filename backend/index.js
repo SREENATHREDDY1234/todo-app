@@ -9,7 +9,7 @@ const app = express();
 
 //Middleware
 const allowedOrigins = [
-    ' https://todo-app-ruby-five-11.vercel.app/login',
+    'https://todo-app-ruby-five-11.vercel.app',
     'http://localhost:5173'
 ];
 
