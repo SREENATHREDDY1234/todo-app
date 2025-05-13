@@ -9,7 +9,8 @@ const app = express();
 
 //Middleware
 const allowedOrigins = [
-    '*'
+    ' https://todo-app-ruby-five-11.vercel.app/login',
+    'http://localhost:5173'
 ];
 
 app.use(cors({
