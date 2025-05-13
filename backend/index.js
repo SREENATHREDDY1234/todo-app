@@ -7,21 +7,15 @@ const todoRoutes = require('./routes/todoRoutes');
 
 const app = express();
 
-//Middleware
-const allowedOrigins = [
-    'https://todo-app-ruby-five-11.vercel.app',
-    'http://localhost:5173'
-];
+//cors options
+const corsOptions = {
+    origin: ['http://localhost:5174','https://todo-app-ruby-five-11.vercel.app'], // Replace with your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+app.use(cors(corsOptions)); // Enable CORS with options
 
-app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    }
-})); //Allow frontend communicate to backend
+
 app.use(express.json()); //Parse json requires
 
 
