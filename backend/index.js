@@ -9,8 +9,7 @@ const app = express();
 
 //Middleware
 const allowedOrigins = [
-    'http://localhost:5173',          // Local development
-    'https://todo-app-sreen-one.vercel.app' // Deployed frontend
+    '*'
 ];
 
 app.use(cors({

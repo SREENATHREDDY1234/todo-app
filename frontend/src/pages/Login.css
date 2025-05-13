@@ -43,6 +43,7 @@
     right: 30px;
     bottom:10px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .login-button{
@@ -53,6 +54,7 @@
     border: none;
     color: #ffffff;
     background-color: #00c057;
+    cursor: pointer;
 }
 
 .error{

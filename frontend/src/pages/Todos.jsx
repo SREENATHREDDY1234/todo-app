@@ -104,9 +104,7 @@ const Todos = () => {
               todos.map((todo)=>{
               return (
                 <div key= {todo._id} className='todo-list'>
-                    <button  
-                      className="icon checkbox" 
-                      onClick={()=>{handleToggleTodo(todo._id)}}
+                    <button className="icon checkbox" onClick={()=>{handleToggleTodo(todo._id)}}
                     >{(todo.completed)? <MdCheckBox/>:<MdCheckBoxOutlineBlank />}</button>
                     <p id = {todo._id} style={{textDecoration: (todo.completed)?'line-through':'none'}}>{todo.title}</p>
                     <button className = "icon delete" onClick = {()=>handleDelete(todo._id)}><FiTrash2/></button>
